@@ -1,6 +1,10 @@
 package cmd
 
-import "github.com/spf13/cobra"
+import (
+	"cuan-tracker/internal/app/server"
+
+	"github.com/spf13/cobra"
+)
 
 func newCLI() *cobra.Command {
 	cli := &cobra.Command{
