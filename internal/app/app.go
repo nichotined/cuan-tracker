@@ -14,3 +14,7 @@ func Init() {
 func Close() {
 
 }
+
+func initDB() {
+
+}
