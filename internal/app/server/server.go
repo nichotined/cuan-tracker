@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"cuan-tracker/internal/pkg/config"
 	h "cuan-tracker/internal/pkg/handler"
 	"cuan-tracker/internal/pkg/logger"
 	"net/http"
@@ -17,12 +18,13 @@ func Start() {
 }
 
 func startServer(handler http.Handler) {
+	cfg := config.GetConfig("config.yml")
 	stop := make(chan os.Signal, 2)
 	signal.Notify(stop, syscall.SIGINT, syscall.SIGTERM)
 
 	logger.Info("server.startServer", "server started", nil)
 	server := &http.Server{
-		Addr:    "",
+		Addr:    cfg.Server.Host + ":" + cfg.Server.Port,
 		Handler: handler,
 	}
 	go func() {

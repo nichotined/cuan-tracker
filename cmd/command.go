@@ -1,4 +1,4 @@
-package cmd
+package main
 
 import (
 	"cuan-tracker/internal/app/server"
@@ -18,7 +18,7 @@ func newCLI() *cobra.Command {
 func newServerCmd() *cobra.Command {
 	return &cobra.Command{
 		Use:     "server",
-		Short:   "start abyss-go server",
+		Short:   "start cuan-tracker",
 		Aliases: []string{"server", "s"},
 		Run: func(_ *cobra.Command, _ []string) {
 			server.Start()
