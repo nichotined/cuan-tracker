@@ -12,9 +12,10 @@ type Config struct {
 		Host string `yaml:"host"`
 	} `yaml:"server"`
 	Database struct {
-		User   string `yaml:"user"`
-		Pass   string `yaml:"pass"`
-		DBName string `yaml:"database_name"`
+		User    string `yaml:"user"`
+		Pass    string `yaml:"pass"`
+		DBName  string `yaml:"database_name"`
+		Address string `yaml:"address"`
 	} `yaml:"database"`
 }
 

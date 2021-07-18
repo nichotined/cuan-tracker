@@ -38,3 +38,7 @@ func (p *Psql) Ping() {
 		panic(err)
 	}
 }
+
+func (p *Psql) Close() {
+	p.db.Close()
+}

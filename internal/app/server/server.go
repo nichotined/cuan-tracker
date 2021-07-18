@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	h "cuan-tracker/internal/pkg/handler"
 	"cuan-tracker/internal/pkg/logger"
 	"net/http"
 	"os"
@@ -38,7 +39,7 @@ func startServer(handler http.Handler) {
 
 func router() *mux.Router {
 	router := mux.NewRouter()
-	// router.HandleFunc("/ping")
+	router.HandleFunc("/ping", h.PingHandler).Methods(http.MethodGet)
 
 	return router
 }
