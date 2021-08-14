@@ -12,6 +12,7 @@ type Psql interface {
 	Ping()
 	Close()
 	GetDBUrl() string
+	GetClient() *pg.DB
 }
 
 type psql struct {
@@ -56,4 +57,8 @@ func (p *psql) Ping() {
 
 func (p *psql) Close() {
 	p.db.Close()
+}
+
+func (p *psql) GetClient() *pg.DB {
+	return p.db
 }
