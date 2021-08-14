@@ -16,6 +16,8 @@ type Config struct {
 		Pass    string `yaml:"pass"`
 		DBName  string `yaml:"database_name"`
 		Address string `yaml:"address"`
+		Driver  string `yaml:"driver"`
+		Port    string `yaml:"port"`
 	} `yaml:"database"`
 }
 

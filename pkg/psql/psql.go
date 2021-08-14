@@ -2,43 +2,58 @@ package psql
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/go-pg/pg/v10"
 )
 
-type Psql struct {
+type Psql interface {
+	Connect()
+	Ping()
+	Close()
+	GetDBUrl() string
+}
+
+type psql struct {
 	addr     string
 	database string
+	port     string
 	user     string
 	password string
+	driver   string
 	db       *pg.DB
 }
 
-func New(addr string, database string, user string, password string) *Psql {
-	return &Psql{
+func New(addr string, port string, database string, user string, password string, driver string) Psql {
+	return &psql{
 		addr:     addr,
+		port:     port,
 		database: database,
 		user:     user,
 		password: password,
+		driver:   driver,
 	}
 }
 
-func (p *Psql) Connect() {
-	p.db = pg.Connect(&pg.Options{
-		Addr:     p.addr,
-		User:     p.user,
-		Password: p.password,
-		Database: p.database,
-	})
+func (p *psql) GetDBUrl() string {
+	return fmt.Sprintf("%v://%v:%v@%v:%v/%v?sslmode=require", p.driver, p.user, p.password, p.addr, p.port, p.database)
 }
 
-func (p *Psql) Ping() {
+func (p *psql) Connect() {
+	opt, err := pg.ParseURL(p.GetDBUrl())
+	if err != nil {
+		panic(err)
+	}
+	p.db = pg.Connect(opt)
+}
+
+func (p *psql) Ping() {
 	ctx := context.Background()
 	if err := p.db.Ping(ctx); err != nil {
 		panic(err)
 	}
 }
 
-func (p *Psql) Close() {
+func (p *psql) Close() {
 	p.db.Close()
 }

@@ -12,6 +12,7 @@ func newCLI() *cobra.Command {
 		Short: "cuan-tracker",
 	}
 	cli.AddCommand(newServerCmd())
+	cli.AddCommand(newMigrateCmd())
 	return cli
 }
 
@@ -24,5 +25,15 @@ func newServerCmd() *cobra.Command {
 			server.Start()
 		},
 	}
+}
 
+func newMigrateCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:     "migrate",
+		Short:   "start migration",
+		Aliases: []string{"server", "s"},
+		Run: func(_ *cobra.Command, _ []string) {
+			// cfg := config.GetConfig("./config.yml")
+		},
+	}
 }

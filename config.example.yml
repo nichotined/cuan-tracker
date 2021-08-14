@@ -7,4 +7,6 @@ database:
   user: "postgres"
   pass: "password"
   database_name: "database_name"
-  address: "localhost:5432"
+  address: "localhost"
+  port: "5432"
+  driver: postgres

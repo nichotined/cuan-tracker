@@ -1,9 +1,20 @@
 package psql
 
-import "testing"
+import (
+	"cuan-tracker/internal/pkg/config"
+	"testing"
+)
 
 func TestConnect(t *testing.T) {
-	p := New("127.0.0.1:5432", "cuan_tracker", "postgres", "")
+	cfg := config.GetConfig("./config.yml")
+	p := New(
+		cfg.Database.Address,
+		cfg.Database.Port,
+		cfg.Database.DBName,
+		cfg.Database.User,
+		cfg.Database.Pass,
+		cfg.Database.Driver,
+	)
 	p.Connect()
 	p.Ping()
 }

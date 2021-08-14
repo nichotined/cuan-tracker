@@ -2,7 +2,6 @@ package app
 
 import (
 	"cuan-tracker/internal/pkg/config"
-	"cuan-tracker/internal/pkg/logger"
 	"cuan-tracker/pkg/psql"
 )
 
@@ -13,10 +12,9 @@ const (
 	DBError              = "db_error"
 )
 
-var db *psql.Psql
+var db psql.Psql
 
 func Init() {
-	logger.Info("app.Init", "app initialized", nil)
 	initDB()
 }
 
@@ -25,12 +23,14 @@ func Close() {
 }
 
 func initDB() {
-	cfg := config.GetConfig("config.yml")
+	cfg := config.GetConfig("./config.yml")
 	db = psql.New(
 		cfg.Database.Address,
+		cfg.Database.Port,
 		cfg.Database.DBName,
 		cfg.Database.User,
 		cfg.Database.Pass,
+		cfg.Database.Driver,
 	)
 	db.Connect()
 	db.Ping()
