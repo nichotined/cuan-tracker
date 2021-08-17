@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	fmt.Println("Welcome")
+	fmt.Println("cuan-tracker server")
 	defer app.Close()
 	app.Init()
 	cli := newCLI()

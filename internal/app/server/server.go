@@ -42,6 +42,7 @@ func startServer(handler http.Handler) {
 func router() *mux.Router {
 	router := mux.NewRouter()
 	router.HandleFunc("/ping", h.PingHandler).Methods(http.MethodGet)
+	router.HandleFunc("/", h.ErrorHandler).Methods(http.MethodGet)
 
 	return router
 }
