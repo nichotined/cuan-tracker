@@ -1,0 +1,1 @@
+DELETE FROM money WHERE id > 0;
